@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="asset-url" id="artdeco/static/images/icons.svg" content="https://static-exp3.licdn.com/sc/h/14b9qognflsnmq5d3h7urb01a">
+</head>
+<body>
+    <div>
+        <img src="icons/logo.jpg" style="display: block !important;margin: auto auto !important;width:120px;height:auto"></img>
+        <script>
+            getRandomImage();
+            function getRandomImage() {
+                random_images_array = ['img1.gif','img3.gif','img4.gif','img5.gif','img6.gif'];
+                path = 'icons/updating/';
+                var num = Math.floor( Math.random() * random_images_array.length );
+                var img = random_images_array[ num ];
+                var imgStr = '<img src="' + path + img + '" alt = "">';
+                document.write(imgStr); 
+                document.close();
+            }
+        </script>
+        <p class="nerko" id="messages"></p>
+        <p class="nerko" style="font-size: 8px;" id="version"></p>
+    </div>
+    <script>
+        // Display the current version
+        let version = window.location.hash.substring(1);
+        document.getElementById('version').innerText = version;
+        
+        // Listen for messages
+        const {ipcRenderer} = require('electron');
+        ipcRenderer.on('message', function(event, text) {
+          var message = document.getElementById('messages');
+          message.innerHTML = text;
+        })
+    </script>
+</body>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        div {
+            display: block;
+            margin-top: 18%;
+        }
+        
+        img { border:none; height: 125px;display: block;margin: 40px auto !important;}
+        .nerko {
+            font-family: nerko;
+            text-align: center;
+            font-size: 18px;
+        }
+        @font-face {
+        font-family: nerko;
+        src: url(icons/font/gdog.TTF);
+
+    }
+    </style>
+</html>
