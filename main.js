@@ -325,7 +325,7 @@ app.whenReady().then(() => {
       sendStatusToWindow('Checking for update...');
     })
     autoUpdater.on('update-available', (ev, info) => {
-      sendStatusToWindow('Update available');
+      sendStatusToWindow('Updating');
     })
     autoUpdater.on('update-not-available', (ev, info) => {
       setTimeout(()=>{

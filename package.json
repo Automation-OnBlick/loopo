@@ -1,6 +1,6 @@
 {
   "name": "loopo",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "Client Side Handle Of ScrapeIN",
   "main": "main.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "Loopo",
     "Automation"
   ],
-  "author": "sudo-g1itch x sudo-aptinstaller",
+  "author": "Loopo Inc",
   "license": "GPL",
   "devDependencies": {
     "electron": "^11.1.0",
