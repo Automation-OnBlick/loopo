@@ -242,6 +242,28 @@ function decodeItem(cypher){
                         tinyWindow.show();
                         },800);
                       } },
+                      { label: 'Logout', click:  function(){
+                        var dir = app.getPath('userData') + '/applicationData/me.joel';
+                         fs.rmdir(dir, { recursive: true }, (err) => {
+                           if (err) {
+                               throw err;
+                           }
+                       
+                           console.log(`${dir} is deleted!`);
+                       });
+                       var dir = app.getPath('userData') + '/cache';
+                         fs.rmdir(dir, { recursive: true }, (err) => {
+                           if (err) {
+                               throw err;
+                           }
+                       
+                           console.log(`${dir} is deleted!`);
+                       });
+                         
+                         app.isQuiting = true;
+                         app.quit();
+                          
+                         } },
                       { label: 'Quit', click:  function(){
                           app.isQuiting = true;
                           app.quit();
