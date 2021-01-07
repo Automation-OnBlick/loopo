@@ -20,6 +20,7 @@ var userID;
 var tinyWindow;
 var longRandomNumber;
 var tray;
+var newWindow;
 
 function appReadyCall(randomVariable){
   BrowserWindow.addExtension(__dirname+'/Clientliker').then((name) => console.log(`Added Extension:  ${name}`)).catch((err) => console.log('An error occurred: ', err));
@@ -124,7 +125,7 @@ function decodeItem(cypher){
         decryptedPass = decodeItem(cypherPass);
 
 
-        var newWindow = new BrowserWindow({icon: iconLocation,skipTaskbar: true,show:false,
+         newWindow = new BrowserWindow({icon: iconLocation,skipTaskbar: true,show:false,
           webPreferences:{
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration : true,
@@ -248,21 +249,29 @@ function decodeItem(cypher){
                            if (err) {
                                throw err;
                            }
-                       
-                           console.log(`${dir} is deleted!`);
                        });
-                       var dir = app.getPath('userData') + '/cache';
-                         fs.rmdir(dir, { recursive: true }, (err) => {
-                           if (err) {
-                               throw err;
-                           }
-                       
-                           console.log(`${dir} is deleted!`);
-                       });
-                         
-                         app.isQuiting = true;
-                         app.quit();
-                          
+                       newWindow.webContents.session.clearCache(function(){
+                        //some callback.
+                        });
+                        if(tray){
+                          contextMenu = Menu.buildFromTemplate([
+                            { label: 'Report bug', click:  function(){
+                              tinyWindow.loadFile('bugreport.html');
+                              setTimeout(()=>{
+                              tinyWindow.show();
+                              },800);
+                            } },
+                            { label: 'Quit', click:  function(){
+                                app.isQuiting = true;
+                                app.quit();
+                            } }
+                          ]);
+                          tray.setContextMenu(contextMenu);
+                          }
+                        tinyWindow.loadFile('logout/logout.html');
+                        setTimeout(()=>{
+                          tinyWindow.show();
+                        },800);
                          } },
                       { label: 'Quit', click:  function(){
                           app.isQuiting = true;
