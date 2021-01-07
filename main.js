@@ -250,9 +250,9 @@ function decodeItem(cypher){
                                throw err;
                            }
                        });
-                       newWindow.webContents.session.clearCache(function(){
-                        //some callback.
-                        });
+                      //  newWindow.webContents.session.clearCache(function(){
+                      //   //some callback.
+                      //   });
                         if(tray){
                           contextMenu = Menu.buildFromTemplate([
                             { label: 'Report bug', click:  function(){
