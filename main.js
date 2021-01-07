@@ -270,6 +270,14 @@ function decodeItem(cypher){
                       } }
                     ]);
                   tray.setContextMenu(contextMenu);
+                  tray.on("click", ()=>{
+                    tinyWindow.loadFile('success.html');
+                        setTimeout(()=>{
+                          tinyWindow.show();
+                        },800);
+                        setTimeout(()=>{
+                          tinyWindow.hide();
+                        },5000);
                   }
                 },5000);
 
