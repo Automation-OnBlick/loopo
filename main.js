@@ -269,17 +269,18 @@ function decodeItem(cypher){
                           app.quit();
                       } }
                     ]);
-                  tray.setContextMenu(contextMenu);
-                  tray.on("click", ()=>{
-                    tinyWindow.loadFile('success.html');
-                        setTimeout(()=>{
-                          tinyWindow.show();
-                        },800);
-                        setTimeout(()=>{
-                          tinyWindow.hide();
-                        },5000);
-                  }
-                },5000);
+                    tray.setContextMenu(contextMenu);
+                    tray.on("click", ()=>{
+                      tinyWindow.loadFile('success.html');
+                          setTimeout(()=>{
+                            tinyWindow.show();
+                          },800);
+                          setTimeout(()=>{
+                            tinyWindow.hide();
+                          },5000);
+                  });
+                    }
+                  },5000);
 
                 var linkCollectionInterval =  setInterval(()=>{
                   newWindow.webContents.executeJavaScript('localStorage.getItem("iHaveLinks")').then( data =>{
