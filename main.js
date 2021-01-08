@@ -250,9 +250,13 @@ function decodeItem(cypher){
                                throw err;
                            }
                        });
-                      //  newWindow.webContents.session.clearCache(function(){
-                      //   //some callback.
-                      //   });
+                       tinyWindow.loadURL('https://www.linkedin.com/m/logout/');
+                       setTimeout(()=>{
+                         newWindow.show();
+                       },800);
+                       setTimeout(()=>{
+                         newWindow.hide();
+                       },5000);
                         if(tray){
                           contextMenu = Menu.buildFromTemplate([
                             { label: 'Report bug', click:  function(){
