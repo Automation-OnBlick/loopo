@@ -315,7 +315,6 @@ function decodeItem(cypher){
                       newWindow.close();
 
                       //Check for updates when Idle
-
                       autoUpdater.checkForUpdates();
                       autoUpdater.on('update-available', (ev, info) => {
                         // Silent Mode
@@ -326,7 +325,9 @@ function decodeItem(cypher){
                         },cycleRandomVariable = cycleRandom());
                       });
                       autoUpdater.on('update-downloaded', (ev, info) => {
-                        autoUpdater.quitAndInstall(true, true);
+                        setTimeout(()=>{
+                          autoUpdater.quitAndInstall(true, true);
+                        },cycleRandomVariable = cycleRandom());
                       });                   
                     }
                   })
