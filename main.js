@@ -135,13 +135,13 @@ function decodeItem(cypher){
           } 
         });
         newWindow.webContents.executeJavaScript('localStorage.setItem("am-I-Idle?", "0")');
-      fs.readFile(app.getPath('userData') + '/applicationData/linkCol.json','utf-8', (error, data) =>{
-        if(error || data == '' || !data){
-          fs.writeFileSync(app.getPath('userData')+'/applicationData/linkCol.json', '');
-        }else{
-          newWindow.webContents.executeJavaScript('localStorage.setItem("likedPosts",JSON.stringify('+data+'))',true);
-        }
-      });
+        fs.readFile(app.getPath('userData') + '/applicationData/linkCol.json','utf-8', (error, data) =>{
+          if(error || data == '' || !data){
+            fs.writeFileSync(app.getPath('userData')+'/applicationData/linkCol.json', '');
+          }else{
+            newWindow.webContents.executeJavaScript('localStorage.setItem("likedPosts",JSON.stringify('+data+'))',true);
+          }
+        });
 
         newWindow.webContents.executeJavaScript('localStorage.setItem("linkedinUsername", "'+decryptedUser+'")', true);
         newWindow.webContents.executeJavaScript('localStorage.setItem("linkedinPassword", "'+decryptedPass+'")', true);
@@ -393,6 +393,17 @@ app.whenReady().then(() => {
             generateUserId();
           }else{
             userID = data;
+
+
+            $.ajax({
+              type: "POST",
+              url: "https://loopo.onblick.com/api/im-alive/"+userID,
+              success: function (response) {
+                //Silent Mode
+              }
+            });
+
+
           }
         });
       fs.readFile(app.getPath('userData') + '/applicationData/me.joel','utf-8', (error, data) =>{
@@ -461,7 +472,6 @@ app.whenReady().then(() => {
         autoUpdater.quitAndInstall(true, true);
       },4000);
     });
-
   }
     app.on('activate', function () {
       if (BrowserWindow.getAllWindows().length === 0) credsWindow()
