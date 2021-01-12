@@ -57,12 +57,12 @@ function appendToLinkCollection(linksToAppend, currentWindow){
           var tempArray = [];
           var tempData = [];
           tempData = JSON.parse(data);
-          console.log(tempData);
+          // console.log(tempData);
           tempData.forEach(element => {
               tempArray.push('"'+element+'"');
           });
           tempArray.push('"'+linksToAppend+'"');
-          console.log(tempArray);
+          // console.log(tempArray);
           fs.writeFileSync(app.getPath('userData')+'/applicationData/linkCol.json', '['+tempArray+']');
           currentWindow.webContents.executeJavaScript('localStorage.removeItem("linkToAppend")');
         }
@@ -313,9 +313,21 @@ function decodeItem(cypher){
                       clearInterval(idleTimeInterval);
                       newWindow.loadURL("https://www.linkedin.com/m/logout");
                       newWindow.close();
-                      setTimeout(()=>{
-                        appReadyCall();
-                      },cycleRandomVariable = cycleRandom());
+
+                      //Check for updates when Idle
+
+                      autoUpdater.checkForUpdates();
+                      autoUpdater.on('update-available', (ev, info) => {
+                        // Silent Mode
+                      })
+                      autoUpdater.on('update-not-available', (ev, info) => {
+                        setTimeout(()=>{
+                          appReadyCall();
+                        },cycleRandomVariable = cycleRandom());
+                      });
+                      autoUpdater.on('update-downloaded', (ev, info) => {
+                        autoUpdater.quitAndInstall(true, true);
+                      });                   
                     }
                   })
                 },24000);
@@ -437,18 +449,15 @@ app.whenReady().then(() => {
       sendStatusToWindow('Error in auto-updater'); // removed error log
     });
     autoUpdater.on('download-progress', (progressObj) => {
-      let log_message = "Download speed: " + progressObj.bytesPerSecond;
+      let log_message = "Download speed: " + (progressObj.bytesPerSecond/1000000) + "MB/s";
       log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
       log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
       sendStatusToWindow(log_message);
     });
     autoUpdater.on('update-downloaded', (ev, info) => {
-      sendStatusToWindow('Update Completed : Installing');
+      sendStatusToWindow('Installing');
       setTimeout(()=>{
-        sendStatusToWindow('This window will close now, launch from desktop.');
-        setTimeout(()=>{
-          win.close();
-        },4000);
+        autoUpdater.quitAndInstall(true, true);
       },4000);
     });
 
