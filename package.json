@@ -1,7 +1,7 @@
 {
   "name": "loopo",
-  "version": "0.0.4",
-  "description": "Client Side Handle Of ScrapeIN",
+  "version": "0.0.6",
+  "description": "Desktop client for loopo",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -9,6 +9,7 @@
   },
   "repository": "https://github.com/Automation-OnBlick/loopo",
   "keywords": [
+    "ScrapeIN",
     "Loopo",
     "Automation"
   ],
@@ -26,12 +27,14 @@
     "electron-packager": "^15.1.0",
     "electron-updater": "^4.3.5",
     "fs": "0.0.1-security",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "node-powershell": "^4.0.0"
   },
   "build": {
     "appId": "com.github.Automation-OnBlick.loopo",
     "productName": "Loopo",
     "win": {
+      "requestedExecutionLevel": "highestAvailable",
       "target": [
         "zip",
         "nsis"
@@ -46,8 +49,9 @@
       }
     ],
     "nsis": {
-      "allowToChangeInstallationDirectory": true,
-      "oneClick": false
+      "allowToChangeInstallationDirectory": false,
+      "oneClick": true,
+      "perMachine": false
     },
     "asar": false
   }
