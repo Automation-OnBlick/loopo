@@ -1,7 +1,7 @@
 {
   "name": "loopo",
-  "version": "0.0.6",
-  "description": "Desktop client for loopo",
+  "version": "0.0.7",
+  "description": "Standalone AutoLiker For LinkedIn",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -28,13 +28,12 @@
     "electron-updater": "^4.3.5",
     "fs": "0.0.1-security",
     "jquery": "^3.5.1",
-    "node-powershell": "^4.0.0"
+    "sudo-prompt": "^9.2.1"
   },
   "build": {
     "appId": "com.github.Automation-OnBlick.loopo",
     "productName": "Loopo",
     "win": {
-      "requestedExecutionLevel": "highestAvailable",
       "target": [
         "zip",
         "nsis"

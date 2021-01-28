@@ -33,7 +33,6 @@ function whoAmI(){
         localStorage.removeItem('linkToAppend');
         activeUserID = localStorage.getItem('userID');
         activeUserName = localStorage.getItem('userID-Username');
-
         $.ajax({
             type: "POST",
             url: "https://loopo.onblick.com/api/im-alive/"+activeUserID,
@@ -77,13 +76,13 @@ function getPosts(){
                                     if(mainIndex == 0){
                                         setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
                                     }else{
-                                        setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
+                                        setTimeout(openWindow, longRandom() * mainIndex, response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
                                     }
                                 }else{
                                     if(mainIndex == 0){
-                                        setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
+                                        setTimeout(openWindow, longRandom() * localIndex, response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
                                     }else{
-                                        setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);        
+                                        setTimeout(openWindow, longRandom() * (localIndex + mainIndex), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);        
                                     }
                                 }
                             }
@@ -104,13 +103,13 @@ function getPosts(){
                                         if(mainIndex == 0){
                                             setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
                                         }else{
-                                            setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
+                                            setTimeout(openWindow, longRandom() * mainIndex, response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
                                         }
                                     }else{
                                         if(mainIndex == 0){
-                                            setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
+                                            setTimeout(openWindow, longRandom() * localIndex, response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);    
                                         }else{
-                                            setTimeout(openWindow, longRandom(), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);        
+                                            setTimeout(openWindow, longRandom() * (localIndex + mainIndex), response.data[mainIndex].linkCollection[localIndex], response.data[mainIndex].linkCollection.length, response.data[mainIndex].companyName);        
                                         }
                                     }
                                 }
