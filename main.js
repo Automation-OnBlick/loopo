@@ -111,7 +111,7 @@ function longRandom(){
 }
 
 function cycleRandom(){
-  return Math.floor(Math.random() * (270000 - 180000 + 1) + 180000);
+  return Math.floor(Math.random() * (10800000 - 7200000 + 1) + 7200000);
 }
 function encodeItem(text) {
   return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(text));
