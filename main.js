@@ -5,13 +5,37 @@ const CryptoJS = require('crypto-js');
 const { autoUpdater } = require("electron-updater");
 const log = require('electron-log');
 const sudo = require('sudo-prompt');
+const { dialog } = require('electron');
+
 
 app.setLoginItemSettings({
   openAtLogin: true,
   path: app.getPath('exe')
 });
+const options = {
+  type: 'question',
+  buttons: ['Okay'],
+  defaultId: 1,
+  title: 'Loopo',
+  message: 'An instance of the app is already running.',
+};
 
 var cmdChecker;
+
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    dialog.showMessageBox(null, options, (response) => {
+      console.log(response);
+    });
+  });
+}
+
+
+
 
 function powershellCall(){
 
@@ -545,7 +569,7 @@ app.whenReady().then(() => {
                 }else{
                   console.log('tray already exist');
                 }
-                tinyWindow.loadFile('sync.html');
+                tinyWindow.loadURL(`file://${__dirname}/sync.html#v${app.getVersion()}`);
                 tinyWindow.setMenuBarVisibility(false);
                 longRandomNumber = longRandom();
                 tinyWindow.webContents.executeJavaScript('localStorage.setItem("applicationID", "'+userID+'")');

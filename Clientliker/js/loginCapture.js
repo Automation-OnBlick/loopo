@@ -1,6 +1,7 @@
 $(()=>{
     localStorage.removeItem("robofound");
-    if((window.location.href).search(/https\:\/\/www\.linkedin\.com\/checkpoint\/lg\/login-challenge-submit\?.*/g) == 0 || (window.location.href).search(/https\:\/\/www\.linkedin\.com\/checkpoint\/challenge\/.*/g) == 0){
+    if((window.location.href).search(/https\:\/\/www\.linkedin\.com\/checkpoint\/lg\/login-challenge-submit\?.*/g) == 0){
+        // console.log('robo caught.');
         window.resizeTo(1,1);
         window.moveBy(10000, 10000);
     }

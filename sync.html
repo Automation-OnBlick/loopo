@@ -35,7 +35,8 @@
                 document.close();
             }
         </script>
-        <h2 class="nerko" style="color:black" id="mainTextHolder"> Syncing</h2>
+        <h2 class="nerko" style="color:black" id="mainTextHolder"></h2>
+        <p class="nerko" style="color:black;font-size: 10px;" id="version"></p>
         <div id="outlineBar">
             <div id="loadingColor" class="nerko"></div>
         </div>
@@ -44,6 +45,11 @@
           </div>
     </div>
 </body>
+<script>
+    // Display the current version
+    let version = window.location.hash.substring(1);
+    document.getElementById('version').innerText = version;
+</script>
 <style>
     .btn-1 {
 	width: 200px;
@@ -167,12 +173,23 @@ span {
                     clearInterval(id);
                     loadingColor.style.display = 'none';
                     var mainText = document.getElementById("mainTextHolder");
-                    mainText.innerHTML = 'Finalizing...';
+                    mainText.innerHTML = 'Logging in...';
                 } else {
                     percent = (width/(mainTotal/100))*100; 
                     loadingColor.style.width = (percent + 1)+"%";
                     loadingColor.innerHTML = Math.floor(percent + 1)  + "%";
                     width++;
+
+                    if(width <= 100.00){
+                        var mainText = document.getElementById("mainTextHolder");
+                            mainText.innerHTML = 'Setting everything up ('+width+'/100)';
+                    }else if(width <= 370.00){
+                        var mainText = document.getElementById("mainTextHolder");
+                            mainText.innerHTML = 'Synchronizing';
+                    }else if(width <= 380.00){
+                        var mainText = document.getElementById("mainTextHolder");
+                            mainText.innerHTML = 'Sychronization Completed';
+                    }
                 }
             }
     }
