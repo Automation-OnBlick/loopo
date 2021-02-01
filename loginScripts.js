@@ -38,8 +38,8 @@ function login(){
     var username =  $("#username").val();
     var password = $("#password").val();
 
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
 
     encryptedUsername = encodeItem(username);
     encryptedPassword = encodeItem(password);
@@ -54,7 +54,7 @@ function login(){
         }else{
                     fs.writeFileSync(app.getPath('userData')+'/applicationData/me.joel', encryptedUsername+'   '+encryptedPassword);
                     remote.app.relaunch();
-                    window.close();
+                    app.exit();
         //  }
             //});
         }

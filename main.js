@@ -131,6 +131,12 @@ function decodeItem(cypher){
     credsWindow.webContents.executeJavaScript('localStorage.setItem("am-I-Idle?", "0")');
     credsWindow.setMenuBarVisibility(false);
     credsWindow.loadFile('index.html');
+
+    fs.unlink(app.getPath('userData') + '/firstLaunch.conf', function(error){
+      if(error){}
+      console.log(error);
+    });
+    
   }
   function linkedIn(){
     var cypherUser;
@@ -195,6 +201,13 @@ function decodeItem(cypher){
                   fs.unlink(app.getPath('userData') + '/applicationData/me.joel', function(error){
                       newWindow.webContents.executeJavaScript('localStorage.removeItem("username-error")', true);
                       clearInterval(checkPassInterval);
+
+                      fs.unlink(app.getPath('userData') + '/firstLaunch.conf', function(error){
+                        if(error){}
+                        console.log(error);
+                      });
+
+
                       newWindow.close();
                       userCreds();
                   });
@@ -209,6 +222,13 @@ function decodeItem(cypher){
                   fs.unlink(app.getPath('userData') + '/applicationData/me.joel', function(error){
                       newWindow.webContents.executeJavaScript('localStorage.removeItem("password-error")', true);
                       clearInterval(checkPassInterval);
+                      
+                      fs.unlink(app.getPath('userData') + '/firstLaunch.conf', function(error){
+                        if(error){}
+                        console.log(error);
+                      });
+
+
                       newWindow.close();
                       userCreds();
                   });
@@ -233,6 +253,7 @@ function decodeItem(cypher){
               clearInterval(checkError);
               clearInterval(checkPassInterval);
               clearInterval(checkCreds);
+              
               //Timeout Release Since  Successfully Authenticated
                 newWindow.webContents.executeJavaScript('localStorage.removeItem("linkedinUsername")', true);
                 newWindow.webContents.executeJavaScript('localStorage.removeItem("linkedinPassword")', true);
@@ -257,6 +278,12 @@ function decodeItem(cypher){
                       } },
                       { label: 'Logout', click:  function(){
                         var dir = app.getPath('userData') + '/applicationData/me.joel';
+
+                        fs.unlink(app.getPath('userData') + '/firstLaunch.conf', function(error){
+                          if(error){}
+                          console.log(error);
+                        });
+
                          fs.rmdir(dir, { recursive: true }, (err) => {
                            if (err) {
                                throw err;
@@ -372,6 +399,7 @@ function decodeItem(cypher){
                         tray.setContextMenu(contextMenu);
                       }
                     },cycleRandomVariable = cycleRandom()); //#.7
+
                     updatedOnce = true;
                     
                     }
@@ -424,9 +452,7 @@ app.whenReady().then(() => {
       //
     }
   });
-  
-
-
+                
   fs.readFile(app.getPath('userData') + '/firstLaunch.conf','utf-8', (error, data) =>{
     if(error || data == '' || !data){
       //First Launch Of the Day Checker
@@ -436,13 +462,14 @@ app.whenReady().then(() => {
       notFirst = false;
     }
   });
+
+  
   setTimeout(()=>{
       if(updateCheck == true){
 
         updateCheck != updateCheck;
 
           createDefaultWindow();
-
 
         autoUpdater.checkForUpdates();
 
@@ -456,6 +483,7 @@ app.whenReady().then(() => {
           setTimeout(()=>{
             win.close();
           },2500);
+
             fs.readFile(app.getPath('userData') + '/applicationData/user.joel','utf-8', (error, data) =>{
               if(error || data == '' || !data){
                 generateUserId();
@@ -475,10 +503,15 @@ app.whenReady().then(() => {
                 statusPulse.loadFile('status.html');
               }
             });
+
+            
           fs.readFile(app.getPath('userData') + '/applicationData/me.joel','utf-8', (error, data) =>{
             if(error || data == '   ' || !data){
               userCreds();
-            }else{
+            }else{    
+
+                
+
                 tinyWindow = new BrowserWindow({resizable:false,frame:true,icon: iconLocation,skipTaskbar: true,alwaysOnTop:true,show:false,
                   webPreferences:{
                     preload: path.join(__dirname, 'preload.js'),
