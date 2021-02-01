@@ -339,18 +339,17 @@ function decodeItem(cypher){
                       if(statusPulse != null){
                         statusPulse.close();
                       }
-
+                        //usable data here
+                    setTimeout(()=>{
+                      //logout time extended 
                       newWindow.loadURL("https://www.linkedin.com/m/logout");
                       setTimeout(()=>{
                         newWindow.close();
+                        setTimeout(()=>{app.relaunch();
+                          setTimeout(()=>{app.exit();},3000);
+                        },3000);
                       },3000);
-                      
-                    
-                        //usable data here
-                    setTimeout(()=>{
-                      setTimeout(()=>{app.relaunch();
-                        setTimeout(()=>{app.exit();},3000);
-                      },3000);
+
                       //  createDefaultWindow(); 
                        //win.hide();
                        if(tray){
@@ -372,7 +371,7 @@ function decodeItem(cypher){
                         ]);
                         tray.setContextMenu(contextMenu);
                       }
-                    },cycleRandomVariable = cycleRandom()); 
+                    },cycleRandomVariable = cycleRandom()); //#.7
                     updatedOnce = true;
                     
                     }
