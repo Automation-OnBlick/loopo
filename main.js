@@ -231,7 +231,6 @@ function decodeItem(cypher){
                         console.log(error);
                       });
 
-
                       newWindow.close();
                       userCreds();
                   });
@@ -262,6 +261,13 @@ function decodeItem(cypher){
                     setTimeout(()=>{
                       tinyWindow.hide();
                       newWindow.show();
+
+                      var roboCheckReHideCycle = setInterval(()=>{
+                        if(newWindow.webContents.getURL() == 'https://www.linkedin.com/feed/'){
+                          clearInterval(roboCheckReHideCycle);
+                          newWindow.hide();
+                        }
+                      },1000);
                     },6000);
                 }
             },5000);           
@@ -386,16 +392,18 @@ function decodeItem(cypher){
                       clearInterval(linkCollectionInterval);
                       clearInterval(idleTimeInterval);
 
-                      
-                      if(statusPulse != null){
-                        statusPulse.close();
-                      }
                         //usable data here
                     setTimeout(()=>{
+                      
                       //logout time extended 
                       newWindow.loadURL("https://www.linkedin.com/m/logout");
                       setTimeout(()=>{
-                        newWindow.close();
+                        newWindow.close();  
+
+                        if(statusPulse != null){
+                          statusPulse.close();
+                        }
+                        
                         setTimeout(()=>{app.relaunch();
                           setTimeout(()=>{app.exit();},3000);
                         },3000);
